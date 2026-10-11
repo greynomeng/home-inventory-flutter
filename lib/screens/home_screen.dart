@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../services/api_service.dart';
+import 'categories_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -9,6 +12,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  final ApiService _apiService = ApiService();
 
   static const List<_NavigationDestination> _destinations = [
     _NavigationDestination(
@@ -37,6 +41,12 @@ class _HomeScreenState extends State<HomeScreen> {
       selectedIcon: Icons.settings,
     ),
   ];
+
+  @override
+  void dispose() {
+    _apiService.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -107,11 +117,12 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.inventory_2_outlined,
         );
       case 2:
-        return const _PlaceholderPage(
-          title: 'Categories',
-          message: 'Organise your inventory into categories.',
-          icon: Icons.category_outlined,
-        );
+        return CategoriesScreen(apiService: _apiService);
+      // return const _PlaceholderPage(
+      //   title: 'Categories',
+      //   message: 'Organise your inventory into categories.',
+      //   icon: Icons.category_outlined,
+      // );
       case 3:
         return const _PlaceholderPage(
           title: 'Locations',
