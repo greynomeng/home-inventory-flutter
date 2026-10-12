@@ -1,9 +1,10 @@
 // lib/widgets/item_form.dart
 
 import 'package:flutter/material.dart';
-import 'package:home_inventory/models/category.dart';
-import 'package:home_inventory/models/item.dart';
-import 'package:home_inventory/models/location.dart';
+
+import '../models/category.dart';
+import '../models/item.dart';
+import '../models/location.dart';
 
 class ItemForm extends StatefulWidget {
   final Item? initialItem;
@@ -98,18 +99,14 @@ class _ItemFormState extends State<ItemForm> {
 
   double? _readPrice(TextEditingController controller) {
     final value = controller.text.trim();
-
     if (value.isEmpty) return null;
-
     return double.tryParse(value);
   }
 
   Future<void> _submit() async {
     if (!_formKey.currentState!.validate()) return;
 
-    setState(() {
-      _saving = true;
-    });
+    setState(() => _saving = true);
 
     final previous = widget.initialItem;
 
@@ -134,7 +131,6 @@ class _ItemFormState extends State<ItemForm> {
 
     try {
       await widget.onSave(item);
-
       if (mounted) Navigator.of(context).pop();
     } catch (error) {
       if (mounted) {
@@ -175,10 +171,11 @@ class _ItemFormState extends State<ItemForm> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(_isEditing ? 'Edit item' : 'Additem'),
+      title: Text(_isEditing ? 'Edit item' : 'Add item'),
       content: SizedBox(
         width: 520,
         child: Form(
+          key: _formKey,
           child: SingleChildScrollView(
             child: Column(
               mainAxisSize: MainAxisSize.min,
@@ -188,7 +185,7 @@ class _ItemFormState extends State<ItemForm> {
                   controller: _name,
                   validator: (value) {
                     if (value == null || value.trim().isEmpty) {
-                      return 'Enter an item name.';
+                      return 'Enter an item name';
                     }
                     return null;
                   },
@@ -294,7 +291,7 @@ class _ItemFormState extends State<ItemForm> {
                 SwitchListTile(
                   contentPadding: EdgeInsets.zero,
                   title: const Text('Asset'),
-                  subtitle: const Text('Mark this item as an asset.'),
+                  subtitle: const Text('Mark this item as an asset'),
                   value: _asset,
                   onChanged: (value) => setState(() => _asset = value),
                 ),

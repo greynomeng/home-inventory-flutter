@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_inventory/screens/items_screen.dart';
 import 'package:home_inventory/screens/locations_screen.dart';
 
 import '../services/api_service.dart';
@@ -112,11 +113,12 @@ class _HomeScreenState extends State<HomeScreen> {
           icon: Icons.dashboard_outlined,
         );
       case 1:
-        return const _PlaceholderPage(
-          title: 'Items',
-          message: 'Your inventory items will appear here.',
-          icon: Icons.inventory_2_outlined,
-        );
+        return ItemsScreen(apiService: _apiService);
+      // return const _PlaceholderPage(
+      //   title: 'Items',
+      //   message: 'Your inventory items will appear here.',
+      //   icon: Icons.inventory_2_outlined,
+      // );
       case 2:
         return CategoriesScreen(apiService: _apiService);
 
