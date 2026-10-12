@@ -171,6 +171,10 @@ class _ItemFormState extends State<ItemForm> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      insetPadding: const EdgeInsets.symmetric(
+        horizontal: 16,
+        vertical: 24,
+      ),
       title: Text(_isEditing ? 'Edit item' : 'Add item'),
       content: SizedBox(
         width: 520,
