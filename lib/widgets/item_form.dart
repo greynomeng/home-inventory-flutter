@@ -296,7 +296,7 @@ class _ItemFormState extends State<ItemForm> {
                   title: const Text('Asset'),
                   subtitle: const Text('Mark this item as an asset.'),
                   value: _asset,
-                  onChanged: (value)=>setState(() => _asset = value);,
+                  onChanged: (value) => setState(() => _asset = value),
                 ),
               ],
             ),
