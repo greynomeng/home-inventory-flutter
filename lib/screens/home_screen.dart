@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:home_inventory/screens/locations_screen.dart';
 
 import '../services/api_service.dart';
 import 'categories_screen.dart';
@@ -118,17 +119,10 @@ class _HomeScreenState extends State<HomeScreen> {
         );
       case 2:
         return CategoriesScreen(apiService: _apiService);
-      // return const _PlaceholderPage(
-      //   title: 'Categories',
-      //   message: 'Organise your inventory into categories.',
-      //   icon: Icons.category_outlined,
-      // );
+
       case 3:
-        return const _PlaceholderPage(
-          title: 'Locations',
-          message: 'Manage rooms and storage locations.',
-          icon: Icons.place_outlined,
-        );
+        return LocationsScreen(apiService: _apiService);
+
       case 4:
         return const _PlaceholderPage(
           title: 'Settings',
