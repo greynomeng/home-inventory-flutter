@@ -67,7 +67,6 @@ class ImageService {
 
     if (response.statusCode != 200) {
       final data = _decodeResponse(response);
-      ;
 
       throw Exception(data['error']?.toString() ?? 'Image deletion failed.');
     }

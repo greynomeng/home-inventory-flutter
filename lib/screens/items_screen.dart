@@ -1,11 +1,13 @@
 // lib/screens/items_screen.dart
 
 import 'package:flutter/material.dart';
+import 'package:home_inventory/services/image_service.dart';
 
 import '../models/category.dart';
 import '../models/item.dart';
 import '../models/location.dart';
 import '../services/api_service.dart';
+// import '../services/image_service.dart';
 import '../widgets/item_form.dart';
 
 class ItemsScreen extends StatefulWidget {
@@ -104,6 +106,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
 
     await showDialog<void>(
       context: context,
+      barrierDismissible: false,
       builder: (dialogContext) => ItemForm(
         initialItem: item,
         categories: _categories,
@@ -419,12 +422,13 @@ class _ItemsScreenState extends State<ItemsScreen> {
           padding: const EdgeInsets.all(12),
           child: Row(
             children: [
-              CircleAvatar(
-                radius: 26,
-                child: Icon(
-                  item.asset ? Icons.home_work_outlined : Icons.inventory_2,
-                ),
-              ),
+              _itemThumbnail(item),
+              // CircleAvatar(
+              //   radius: 26,
+              //   child: Icon(
+              //     item.asset ? Icons.home_work_outlined : Icons.inventory_2,
+              //   ),
+              // ),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -568,6 +572,36 @@ class _ItemsScreenState extends State<ItemsScreen> {
           ),
           Expanded(child: Text(value)),
         ],
+      ),
+    );
+  }
+
+  Widget _itemThumbnail(Item item) {
+    final photo = item.photo;
+
+    if (photo.isEmpty || photo == 'no-image.png') {
+      return CircleAvatar(
+        radius: 30,
+        child: Icon(
+          item.asset ? Icons.home_work_outlined : Icons.inventory_2_outlined,
+        ),
+      );
+    }
+
+    final url = ImageService().absoluteUrl(photo);
+
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(8),
+      child: Image.network(
+        url,
+        width: 60,
+        height: 60,
+        fit: BoxFit.cover,
+        errorBuilder: (_, _, _) => const SizedBox(
+          width: 60,
+          height: 60,
+          child: Icon(Icons.broken_image_outlined),
+        ),
       ),
     );
   }
